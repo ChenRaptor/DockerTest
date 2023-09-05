@@ -1,4 +1,4 @@
-.docker
+.docker/*
 .docker/ssl
 .docker/stores
 .docker/ssh
