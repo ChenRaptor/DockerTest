@@ -38,6 +38,62 @@
                     </svg>
                 </div>
 
+                <style>
+                    form{
+                        color: white; 
+                        display: flex; 
+                        flex-direction: column;
+                    }
+
+                    form input[type="submit"]{
+                        margin-top: 6px;
+                        background-color:#FF2D20 !important;
+                        cursor: pointer;
+                        border-radius: 3px;
+                    }
+
+                    form input{
+                        color: black;
+                    }
+
+                    form p{
+                        color:#FF2D20;
+                    }
+
+
+                    #error {
+                        display:none;
+                        margin-top:1vh;
+                        background-color:#FF2D20;
+                        color:white;
+                        border-radius: 10px;
+                        padding:10px;
+                    }
+                </style>
+
+                <div class="mt-16">
+                    <form action="./logincontroller" method="POST">
+                        @csrf
+                        <label for="url">Entrer votre url</label>
+                        <input type="text" name="url" require>
+                        @if($errors->has('url'))
+                            <p>{{$errors->first('url')}}</p>
+                        @endif
+                        <label for="email">Entrer votre email</label>
+                        <input type="text" name="email" require>
+                        @if($errors->has('email'))
+                            <p>{{$errors->first('email')}}</p>
+                        @endif
+                        <label for="password">Entrer votre mot de passe</label>
+                        <input type="password" name="password" require>
+                        <input type="submit" value="Subscribe" />
+
+                        
+                    </form>
+                </div>
+
+
+<!--                  
                 <div class="mt-16">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
 
@@ -86,7 +142,7 @@
                         </div>
 
                     </div>
-                </div>
+                </div> -->
 
                 <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
                     <div class="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-left">

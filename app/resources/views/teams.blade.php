@@ -55,21 +55,60 @@
                 color: orange
             }
 
+            form {
+                border: 1px solid #ccc;
+                padding: 10px;
+                margin: 10px;
+                text-align: center;
+                display: flex;
+                justify-content: space-between;
+                padding: 20px 30px;
+                width: 90%;
+                align-items: center;
+            }
+
+            form > input[type="text"] {
+                border: 1px solid black;
+                width: 300px;
+                padding: 10px;
+                border-radius: 10px;
+                outline: none
+            }
+            form > input[type="submit"] {
+                width: 300px;
+                padding: 10px;
+                border-radius: 10px;
+                outline: none;
+                background: #dfdfdf;
+            }
+            a {
+                width: 100%;
+            }
         </style>
 
     </head>
     <body class="antialiased">
-        <h1>{{__('showpassword.h1')}}</h1>
-
+        <h1>{{ __('team.h1') }}</h1>
+        <form action="/teams/add" method="POST">
+            @csrf
+            <label for="name">{{ __('team.addTeam') }}</label>
+            <input type="text" name="name">
+            @if($errors->has('name'))
+                <p>{{$errors->first('name')}}</p>
+            @endif
+            <input type="submit" value="{{ __('team.subscribe') }}" />
+        </form>
+        <p>{{ $message }}</p>
+        @if($datas)
         <div class="password-list">
-            @foreach($passwords as $password)
+            @foreach($datas as $data)
+            <a href="/teams/{{ $data->id }}">
                 <div class="password-item">
-                    <div><strong>Site Internet:</strong><p>{{ $password->site }}</p></div>
-                    <div><strong>Courrier Électronique:</strong><p>{{ $password->login }}</p></div>
-                    <div><strong>Mot de Passe:</strong><p>{{ $password->password }}</p><a href="/changepassword/{{ $password->id }}" class="change-pass">Change password</a></div>
+                    <div><strong>Team:</strong><p>{{ $data->name }}</p></div>
                 </div>
+            </a>
             @endforeach
-            <!-- Ajoutez plus d'éléments .password-item au besoin -->
         </div>
+        @endif
     </body>
 </html>

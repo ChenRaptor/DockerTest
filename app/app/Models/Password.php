@@ -10,9 +10,13 @@ class Password extends Model
 {
     use HasFactory;
 
+    protected $casts = [      
+        'password' => 'encrypted',
+    ];
     protected $fillable = ['site','login','password','user_id'];
 
-    public function password(): BelongsTo
+    // TODO
+    public function users(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault();
     }

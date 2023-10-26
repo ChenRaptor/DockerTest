@@ -55,21 +55,61 @@
                 color: orange
             }
 
+            form {
+                border: 1px solid #ccc;
+                padding: 10px;
+                margin: 10px;
+                text-align: center;
+                display: flex;
+                justify-content: space-between;
+                padding: 20px 30px;
+                width: 90%;
+                align-items: center;
+            }
+
+            form > input[type="text"] {
+                border: 1px solid black;
+                width: 300px;
+                padding: 10px;
+                border-radius: 10px;
+                outline: none
+            }
+            form > input[type="submit"] {
+                width: 300px;
+                padding: 10px;
+                border-radius: 10px;
+                outline: none;
+                background: #dfdfdf;
+            }
         </style>
 
     </head>
     <body class="antialiased">
-        <h1>{{__('showpassword.h1')}}</h1>
-
+        <h1>Team {{$team->name}}</h1>
+        <h2>Membres actuelle</h2>
+        @if($members)
         <div class="password-list">
-            @foreach($passwords as $password)
+            @foreach($members as $member)
                 <div class="password-item">
-                    <div><strong>Site Internet:</strong><p>{{ $password->site }}</p></div>
-                    <div><strong>Courrier Électronique:</strong><p>{{ $password->login }}</p></div>
-                    <div><strong>Mot de Passe:</strong><p>{{ $password->password }}</p><a href="/changepassword/{{ $password->id }}" class="change-pass">Change password</a></div>
+                    <div><p>{{ $member->name }}</p></div>
                 </div>
             @endforeach
-            <!-- Ajoutez plus d'éléments .password-item au besoin -->
         </div>
+        @endif
+        <h2>Ajout</h2>
+        @if($usersNotInTeam)
+        <div class="password-list">
+            @foreach($usersNotInTeam as $userNotInTeam)
+                <form action="/teams/{{$team->id}}/add-member/{{ $userNotInTeam->id }}" method="POST">
+                    @csrf
+                    <div class="password-item">
+                        <div>
+                            <p>{{ $userNotInTeam->name }}</p><input type="submit" value="Ajouter à l'équipe" />
+                        </div>
+                    </div>
+                </form>
+            @endforeach
+        </div>
+        @endif
     </body>
 </html>
