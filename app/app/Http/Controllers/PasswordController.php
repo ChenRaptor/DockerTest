@@ -18,7 +18,7 @@ class PasswordController extends Controller
 {
     public function editPassword(Request $request, $id): View
     {   
-        return view('changepassword',[
+        return view('/passwords/password/page',[
             'password_id' => $id, 
             'status' => 'password not updated',
             'pass' => 'ok'
@@ -35,7 +35,7 @@ class PasswordController extends Controller
         ]);
 
         if ($validated->fails()) {
-            return view("changepassword",[
+            return view("/passwords/password/page",[
                 'password_id' => $id,
                 'status' => 'password not updated',
                 // 'pass' => $passwords->where('id', $id)->first()
@@ -46,7 +46,7 @@ class PasswordController extends Controller
         Password::where('id', $id)->first()->update(['password' => $request->newpassword]);
 
 
-        return view('changepassword',[
+        return view('/passwords/password/page',[
             'password_id' => $id,
             'status' => 'password updated',
             // 'pass' => $passwords->where('id', $id)->first()

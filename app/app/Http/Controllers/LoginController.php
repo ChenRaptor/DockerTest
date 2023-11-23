@@ -25,7 +25,7 @@ class LoginController extends Controller
         ]);
      
         if ($validated->fails()) {
-            return redirect('/form')
+            return redirect('/passwords')
                 ->withErrors($validated)
                 ->withInput();
         }

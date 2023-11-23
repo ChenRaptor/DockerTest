@@ -22,14 +22,14 @@ Route::get('/', function () {
 });
 
 Route::get('/form', function () {
-    return view('form');
+    return view('/form');
 });
 
 Route::get('/passwords', [LoginController::class, 'show'])->name('passwords');
 Route::post('/logincontroller', [LoginController::class, 'store'])->name('passwords.store');
-Route::get('/changepassword/{id}', [PasswordController::class, 'editPassword']);
-Route::post('/changepassword/{id}', [PasswordController::class, 'editPasswordInDB']);
-Route::post('/changepassword/{id}', [PasswordController::class, 'editPasswordInDB']);
+Route::get('/passwords/password/{id}', [PasswordController::class, 'editPassword']);
+Route::post('/passwords/password/{id}', [PasswordController::class, 'editPasswordInDB']);
+// Route::post('/changepassword/{id}', [PasswordController::class, 'editPasswordInDB']);
 
 
 Route::get('/teams', [TeamController::class, 'show'])->name('teams');

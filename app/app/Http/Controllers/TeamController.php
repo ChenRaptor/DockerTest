@@ -26,9 +26,9 @@ class TeamController extends Controller
             $user = User::find($userId);
             $datas = $user->teams;
 
-            return view('/teams', ['datas' => $datas, 'message' => `_`]);
+            return view('/teams/page', ['datas' => $datas, 'message' => `_`]);
         }
-        return view('/teams', ['datas' => null, 'message' => `_`]);
+        return view('/teams/page', ['datas' => null, 'message' => `_`]);
     }
 
     public function create(Request $request): RedirectResponse

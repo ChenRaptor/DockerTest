@@ -15,7 +15,7 @@
         <x-app-layout>
             <x-slot name="header">
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    {{__('showpassword.h1')}}
+					{{ __('team.h1') }}
                 </h2>
             </x-slot>
 
@@ -24,23 +24,19 @@
 
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                     <div class="max-w-xl">
-                        @include('passwords.partials.add-password')
+                        @include('teams.partials.add-team')
                     </div>
                 </div>
 
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-white">
                     <div class="max-w-xl">
-                        @foreach($passwords as $password)
-                            <div class="password-item">
-                                <div><strong>Site Internet:</strong><p>{{ $password->site }}</p></div>
-                                <div><strong>Courrier Électronique:</strong><p>{{ $password->login }}</p></div>
-                                <div><strong>Mot de Passe:</strong><p>{{ $password->password }}</p>
-                                <!-- <x-primary-button>{{ __('Save') }}</x-primary-button> -->
-                                <a href="/passwords/password/{{ $password->id }}" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md">
-                                    Change password
-                                </a>
-                            </div>
-                        @endforeach
+					@foreach($datas as $data)
+						<a href="/teams/{{ $data->id }}">
+							<div class="password-item">
+								<div><strong>Team:</strong><p>{{ $data->name }}</p></div>
+							</div>
+						</a>
+					@endforeach
                     </div>
                 </div>
                 
