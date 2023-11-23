@@ -42,15 +42,16 @@ class LoginController extends Controller
         $current_timestamp = Carbon::now()->timestamp;
         $filePath = "{$current_timestamp}.json";
         Storage::put($filePath, $jsonData);
-        
-        return redirect('/form');
+
+        $passwords = Password::where('user_id', Auth::user()->id)->get();
+        return redirect('/passwords')->with('passwords', $passwords);
     }
 
     public function show(Request $request): View
     {   
         
         $passwords = Password::where('user_id', Auth::user()->id)->get();
-        return view('/showpassword')->with('passwords', $passwords);
+        return view('/passwords/page')->with('passwords', $passwords);
     }
 
 }

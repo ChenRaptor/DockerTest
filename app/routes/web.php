@@ -25,14 +25,14 @@ Route::get('/form', function () {
     return view('form');
 });
 
-Route::get('/showpassword', [LoginController::class, 'show']);
-Route::post('/logincontroller', [LoginController::class, 'store']);
+Route::get('/passwords', [LoginController::class, 'show'])->name('passwords');
+Route::post('/logincontroller', [LoginController::class, 'store'])->name('passwords.store');
 Route::get('/changepassword/{id}', [PasswordController::class, 'editPassword']);
 Route::post('/changepassword/{id}', [PasswordController::class, 'editPasswordInDB']);
 Route::post('/changepassword/{id}', [PasswordController::class, 'editPasswordInDB']);
 
 
-Route::get('/teams', [TeamController::class, 'show']);
+Route::get('/teams', [TeamController::class, 'show'])->name('teams');
 Route::post('/teams/add', [TeamController::class, 'create']);
 Route::get('/teams/{id}', [TeamController::class, 'team']);
 Route::post('/teams/{id_team}/add-member/{id_member_added}', [TeamController::class, 'addMember']);

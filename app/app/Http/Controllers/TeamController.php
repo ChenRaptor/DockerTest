@@ -103,7 +103,7 @@ class TeamController extends Controller
         $usersInTeam = $team->users;
         $addedDateTime = now()->toDateTimeString();
 
-        $notification = new TeamNotification($user->name, $userMe->name, $addedDateTime);
+        $notification = new TeamNotification($user->name, $userMe->name, $addedDateTime, "/teams/{$id_team}", $team->name);
 
         foreach ($usersInTeam as $key => $userInTeam) {
             $userInTeam->notify($notification);

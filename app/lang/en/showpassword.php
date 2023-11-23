@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'h1' => 'Password list',
+    'h1' => 'Your authentication credentials',
 ];
