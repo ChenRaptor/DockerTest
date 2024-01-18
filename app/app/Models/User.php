@@ -4,11 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+use App\Models\Team;
+use App\Models\Password;
 
 class User extends Authenticatable
 {
@@ -45,13 +48,20 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function passwords(): HasMany
-    {
-        return $this->hasMany(Password::class);
-    }
 
-    public function teams(): BelongsToMany
+    /**
+     * Relations avec Team
+     */
+    public function teams() : BelongsToMany
     {
         return $this->belongsToMany(Team::class);
+    }
+
+    /**
+     * Relations avec Passwords
+     */
+    public function passwords() : HasMany
+    {
+        return $this->hasMany(Password::class);
     }
 }

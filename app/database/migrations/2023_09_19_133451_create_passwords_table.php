@@ -16,10 +16,11 @@ return new class extends Migration
             $table->string('site', 255);
             $table->string('login', 255);
             $table->longText('password');
-            $table->bigInteger('user_id');
-            $table->timestampsTz();
+            $table->foreignId('user_id');
+            $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

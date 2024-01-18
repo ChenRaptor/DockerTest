@@ -13,11 +13,11 @@ return [
     |
     */
 
-    'reset' => 'Your password has been reset.',
-    'sent' => 'We have emailed your password reset link.',
-    'throttled' => 'Please wait before retrying.',
-    'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that email address.",
-    "passwords" => "Linked passwords"
+    'reset' => 'Votre mot de passe a été réinitialisé.',
+    'sent' => 'Nous avons envoyé par email le lien de réinitialisation de votre mot de passe.',
+    'throttled' => 'Veuillez patienter avant de réessayer.',
+    'token' => 'Ce jeton de réinitialisation de mot de passe est invalide.',
+    'user' => "Nous ne pouvons pas trouver d'utilisateur avec cette adresse email.",
+    "passwords" => "Mots de passe liés"
 
 ];

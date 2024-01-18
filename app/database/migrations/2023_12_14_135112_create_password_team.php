@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('teams', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 255);
-            $table->timestampsTz();
+        Schema::create('password_team', function (Blueprint $table) {
+            $table->foreignId('password_id');
+            $table->foreignId('team_id');
         });
     }
 
@@ -23,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('teams');
+        Schema::dropIfExists('password_team');
     }
 };
