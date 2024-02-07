@@ -37,7 +37,7 @@ class TeamController extends Controller
             if (!$team->users->contains($value)) array_push($usersToInvite, $value);
         }
         
-        return view('teams/single/invite', [
+        return view('teams/update/index', [
             'datas' => $team,
             'id' => $team->id,
             "passwords" => $team->passwords,

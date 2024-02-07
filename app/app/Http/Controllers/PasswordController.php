@@ -37,7 +37,7 @@ class PasswordController extends Controller {
             $teamsWithPasswordShared[] = $team;
         }  
 
-        return view('passwords/single/update', [
+        return view('passwords/update/index', [
             'datas' => $password,
             'teams' => $teamsWithPasswordShared
         ]);
