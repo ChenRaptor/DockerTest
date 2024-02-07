@@ -37,7 +37,7 @@ class PasswordController extends Controller
         }
 
         return view('passwords.update.index', [
-            'password' => $password,
+            'datas' => $password,
             'teams' => $teamsWithPasswordShared
         ]);
     }

@@ -27,8 +27,10 @@ class TeamController extends Controller {
         $team = Team::findOrFail($id);
         $usersToInvite = User::whereNotIn('id', $team->users->pluck('id'))->get();
         return view('teams.update.index', [
-            'team' => $team,
-            'usersToInvite' => $usersToInvite
+            'datas' => $team,
+            'id' => $team->id,
+            "passwords" => $team->passwords,
+            'peoples' => $usersToInvite
         ]);
     }
 
@@ -63,7 +65,7 @@ class TeamController extends Controller {
             $user->name, 
             Auth::user()->name, 
             $team->name, 
-            route("team.get", $id),
+            route("teams.get", $id),
             now()->toDateTimeString()
         );
 

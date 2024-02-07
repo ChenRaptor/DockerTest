@@ -32,8 +32,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/passwords/{id}/update/team', [PasswordController::class, 'updateTeam'])->name("password.updateTeam");
 
     //teams page
-    Route::get('/teams', [TeamController::class, 'show'])->name("team.show");
-    Route::get('/teams/{id}/get', [TeamController::class, 'invitation'])->name("team.get");
+    Route::get('/teams', [TeamController::class, 'show'])->name("teams.show");
+    Route::get('/teams/{id}/get', [TeamController::class, 'invitation'])->name("teams.get");
     
     Route::post('/teams/post', [TeamController::class, 'createNewTeam'])->name("team.post");
     Route::post('/teams/{id}/update', [TeamController::class, 'addUsersToTeam'])->name("team.invite");

@@ -18,7 +18,7 @@
                     <x-nav-link :href="route('password.show')" :active="request()->routeIs('password.show')">
                         {{ __('password.show') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('team.show')" :active="request()->routeIs('team.show')">
+                    <x-nav-link :href="route('teams.show')" :active="request()->routeIs('teams.show')">
                         {{ __('team.show') }}
                     </x-nav-link>
                 </div>
