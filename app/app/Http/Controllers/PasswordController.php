@@ -10,11 +10,12 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
  
 class PasswordController extends Controller {
-    public function create() {
+    public function getPostView() {
         // GET
-        return view('passwords/single/create');
+        return view('passwords/post/index');
     }
-    public function show() {
+
+    public function getAllUserPasswords() {
         // GET
         $userId = Auth::user()->id;
         $datas = Password::where('user_id', $userId)->get();
@@ -22,7 +23,7 @@ class PasswordController extends Controller {
         return view('passwords/page', ['datas' => $datas]);
     }
 
-    public function showOne(int $id) {
+    public function getUserPassword(int $id) {
         // GET
         $userId = Auth::user()->id;
 
@@ -43,8 +44,7 @@ class PasswordController extends Controller {
         ]);
     }
 
-
-    public function store(Request $request) {
+    public function postUserPassword(Request $request) {
         // POST
         $request->validate([
             'url' => 'required|string|url',
@@ -64,7 +64,7 @@ class PasswordController extends Controller {
     }
 
    
-    public function updatePwd(Request $request, int $id) {
+    public function updatePassword(Request $request, int $id) {
         // POST
         $request->validate([
             'newpwd' => 'required|string'

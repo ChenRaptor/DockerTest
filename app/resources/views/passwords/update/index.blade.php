@@ -16,7 +16,7 @@
                             <div>
                                 <p>{{ __('password.update_login') }} :  {{ $datas->login }}</span></p>
                                 
-                                <form action="{{ route('password.updatePwd', $datas->id) }}" method="POST">
+                                <form action="{{ route('password.updatePassword', $datas->id) }}" method="POST">
                                     @csrf                                    
 
                                     <div>

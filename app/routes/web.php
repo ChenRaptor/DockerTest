@@ -23,13 +23,14 @@ Route::get('/dashboard', [BasicViewController::class, 'dashboard'])->middleware(
 
 Route::middleware(['auth', 'verified'])->group(function () {
     //passwords page
-    Route::get('/passwords', [PasswordController::class, 'show'])->name("password.show");
-    Route::get('/passwords/create', [PasswordController::class, 'create'])->name("password.add");
-    Route::post('/passwords/create', [PasswordController::class, 'store'])->name("password.stored");
-    Route::get('/passwords/{id}/update', [PasswordController::class, 'showOne'])->name("password.update");
-    Route::post('/passwords/{id}/update/password', [PasswordController::class, 'updatePwd'])->name("password.updatePwd");
-    Route::post('/passwords/{id}/update/team', [PasswordController::class, 'udpdateTeam'])->name("password.updateTeam");
+    Route::get('/passwords/get', [PasswordController::class, 'getAllUserPasswords'])->name("password.show");
+    Route::get('/passwords/view/post', [PasswordController::class, 'getPostView'])->name("password.add");
+    Route::get('/passwords/{id}/get', [PasswordController::class, 'getUserPassword'])->name("password.update");
     Route::get('/passwords/download', [PasswordController::class, 'download'])->name("password.download");
+
+    Route::post('/passwords/post', [PasswordController::class, 'postUserPassword'])->name("password.post");
+    Route::post('/passwords/{id}/update/password', [PasswordController::class, 'updatePassword'])->name("password.updatePassword");
+    Route::post('/passwords/{id}/update/team', [PasswordController::class, 'updateTeam'])->name("password.updateTeam");
 
 
     //teams page
