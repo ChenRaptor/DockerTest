@@ -7,87 +7,70 @@ use App\Models\User;
 use App\Models\Team;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\TeamNotification;
-use Illuminate\View\View;
 
 class TeamController extends Controller {
     
-    public function show() {
-        // GET        
-        $user = User::find(Auth::user()->id);
-        return view('teams/page', ['datas' => $user->teams]);
+    // Affiche la page des équipes pour l'utilisateur authentifié.
+    public function show() 
+    {
+        return view('teams.page', ['datas' => Auth::user()->teams]);
     }
 
-    public function invitation(int $id) {
-        // GET
-        
-        $user = User::find(Auth::user()->id);
-
-        if (!$user->teams->contains($id)) return redirect(route('login'));
-
-        $team = Team::find($id);
-        
-        $allUsers = User::all();
-        $usersToInvite = array(); 
-        foreach ($allUsers as $key => $value) {
-            if (!$team->users->contains($value)) array_push($usersToInvite, $value);
+    // Affiche la page d'invitation à une équipe.
+    public function invitation(int $id) 
+    {
+        $user = Auth::user();
+        if (!$user->teams->contains($id)) {
+            return redirect()->route('login');
         }
-        
-        return view('teams/update/index', [
-            'datas' => $team,
-            'id' => $team->id,
-            "passwords" => $team->passwords,
-            'peoples' => $usersToInvite
+
+        $team = Team::findOrFail($id);
+        $usersToInvite = User::whereNotIn('id', $team->users->pluck('id'))->get();
+        return view('teams.update.index', [
+            'team' => $team,
+            'usersToInvite' => $usersToInvite
         ]);
     }
 
-
-    public function createNewTeam(Request $request) {
-        // POST
+    // Crée une nouvelle équipe.
+    public function createNewTeam(Request $request) 
+    {
         $request->validate([
             'name' => 'required|string|unique:teams',
         ]);
 
-        $userId = Auth::user()->id;
+        $team = Team::create([
+            'name' => $request->name,
+        ]);
 
-        if ($userId) {
-            $team = Team::create([
-                'name' => $request->name,
-            ]);
+        Auth::user()->teams()->attach($team->id);
 
-            $user = User::find($userId); 
-            $user->teams()->syncWithoutDetaching([$team->id]);
-
-        } else return redirect('/login');
-
-
-        return redirect('/teams');
+        return redirect()->route('teams.show');
     }
 
-
-
-    public function addUsersToTeam(Request $request, int $id) {
-        // POST
-
+    // Ajoute des utilisateurs à une équipe.
+    public function addUsersToTeam(Request $request, int $id) 
+    {
         $request->validate([
-            'person-to-invite' => 'required|int'
+            'person-to-invite' => 'required|int|exists:users,id'
         ]); 
 
-        $added = User::find($request['person-to-invite']);
-        $added->teams()->syncWithoutDetaching([$id]);
-        $team = Team::find($id);
+        $user = User::findOrFail($request->input('person-to-invite'));
+        $user->teams()->attach($id);
+        $team = Team::findOrFail($id);
 
-        $notif = new TeamNotification(
-            $added->name, 
-            User::find( Auth::user()->id)->name, 
+        $notification = new TeamNotification(
+            $user->name, 
+            Auth::user()->name, 
             $team->name, 
             route("team.get", $id),
             now()->toDateTimeString()
         );
 
-        foreach($team->users as $member) $member->notify($notif);
+        foreach ($team->users as $member) {
+            $member->notify($notification);
+        }
 
-        return redirect('/teams/'. $id .'/get');
-    }
-
-   
+        return redirect()->route('teams.get', ['id' => $id]);
+    }   
 }

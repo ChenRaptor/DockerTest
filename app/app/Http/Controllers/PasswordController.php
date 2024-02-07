@@ -5,99 +5,102 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Password;
-use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
- 
-class PasswordController extends Controller {
 
-    public function getAllUserPasswords() {
-        // GET
-        $userId = Auth::user()->id;
-        $datas = Password::where('user_id', $userId)->get();
-    
-        return view('passwords/page', ['datas' => $datas]);
+class PasswordController extends Controller
+{
+    // Obtient tous les mots de passe de l'utilisateur actuel
+    public function getAllUserPasswords()
+    {
+        return view('passwords.page', ['datas' => Password::where('user_id', Auth::id())->get()]);
     }
 
-    public function getUserPassword(int $id) {
-        // GET
-        $userId = Auth::user()->id;
+    // Obtient un mot de passe spécifique de l'utilisateur actuel
+    public function getUserPassword(int $id)
+    {
+        $userId = Auth::id();
 
-        $password = Password::where('id', $id)->where('user_id', $userId)->first();
-        $userTeams = User::find($userId)->teams;
+        // Récupère le mot de passe spécifique pour l'utilisateur actuel
+        $password = Password::where('id', $id)
+            ->where('user_id', $userId)
+            ->firstOrFail();
 
+        // Récupère les équipes partagées avec ce mot de passe
+        $userTeams = User::findOrFail($userId)->teams;
         $teamsWithPasswordShared = [];
 
         foreach ($userTeams as $team) {
             $teamPassword = $team->passwords()->where('id', $id)->first();
             $team->isChecked = !is_null($teamPassword);
             $teamsWithPasswordShared[] = $team;
-        }  
+        }
 
-        return view('passwords/update/index', [
-            'datas' => $password,
+        return view('passwords.update.index', [
+            'password' => $password,
             'teams' => $teamsWithPasswordShared
         ]);
     }
 
-    public function postUserPassword(Request $request) {
-        // POST
+    // Enregistre un nouveau mot de passe pour l'utilisateur actuel
+    public function postUserPassword(Request $request)
+    {
         $request->validate([
             'url' => 'required|string|url',
             'login' => 'required|string',
             'pwd' => 'required|string'
         ]);
 
-        $userId = Auth::user()->id;
+        $userId = Auth::id();
         Password::create([
             'site' => $request->url,
             'login' => $request->login,
             'password' => $request->pwd,
-            "user_id" => $userId,
+            'user_id' => $userId,
         ]);
 
-        return redirect(route('password.show'));
+        return redirect()->route('password.show');
     }
 
-   
-    public function updatePassword(Request $request, int $id) {
-        // POST
+    // Met à jour le mot de passe spécifié par l'utilisateur actuel
+    public function updatePassword(Request $request, int $id)
+    {
         $request->validate([
-            'newpwd' => 'required|string'
+            'newpassword' => 'required|string'
         ]);
 
-        Password::where(['id' => $id])->first()->update(['password' => $request->newpwd]);
+        $password = Password::findOrFail($id);
+        $password->password = $request->newpassword;
+        $password->save();
 
-        return redirect(route('password.show'));
+        return redirect()->route('password.show');
     }
 
-    public function updateTeam(Request $request, int $id) {
+    // Met à jour les équipes avec lesquelles le mot de passe est partagé
+    public function updateTeam(Request $request, int $id)
+    {
         $request->validate([
             'team' => 'array'
-        ]);    
+        ]);
 
-        $user = User::find(Auth::user()->id);
-        $password = Password::where(['id' => $id])->first();
+        $user = Auth::user();
+        $password = Password::findOrFail($id);
 
-        $userTeams = $user->teams;
-        $teamsNotToShare = $userTeams->pluck('id')->diff($request->team)->all();
-
-        if ($request->team) {
-            foreach($request->team as $team) {
-                $teamId = intval($team);
-                $password->teams()->syncWithoutDetaching([$teamId]);
-            }
+        if ($request->has('team')) {
+            $teamIds = array_map('intval', $request->team);
+            $password->teams()->sync($teamIds);
+        } else {
+            $password->teams()->detach();
         }
-        foreach($teamsNotToShare as $teamId) $password->teams()->detach([$teamId]);
 
-        return redirect(route('password.show'));        
+        return redirect()->route('password.show');
     }
 
+    // Télécharge les mots de passe de l'utilisateur actuel au format CSV
+    public function download()
+    {
+        $userId = Auth::id();
 
-    public function download() {
-        $user = Auth::user();
-        $userId = $user->id;
-        
         $passwords = Password::where('user_id', $userId)->get();
 
         $headers = [
@@ -108,9 +111,9 @@ class PasswordController extends Controller {
         $callback = function () use ($passwords) {
             $file = fopen('php://output', 'w');
 
-            fputcsv($file, ['site', 'login', 'Mot de passe', 'dernière date de modification', 'Team(s)']);
+            fputcsv($file, ['Site Web', 'Identifiant', 'Mot de passe', 'Dernière date de modification', 'Equipe']);
 
-            foreach ($passwords as $password) {            
+            foreach ($passwords as $password) {
                 fputcsv($file, [
                     $password->site,
                     $password->login,
@@ -126,6 +129,3 @@ class PasswordController extends Controller {
         return response()->stream($callback, 200, $headers);
     }
 }
-
-
-?>

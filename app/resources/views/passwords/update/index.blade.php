@@ -22,9 +22,9 @@
                                     <div>
                                         <label>
                                             <span>{{ __('password.update_new-password') }}</span>
-                                            <input type="password" name="newpwd" class="text-gray-800">
+                                            <input type="password" name="newpassword" class="text-gray-800">
                                         </label>
-                                        @error('newpwd')
+                                        @error('newpassword')
                                             <small>{{ $message }}</small>
                                         @enderror
                                     </div>
