@@ -10,10 +10,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
  
 class PasswordController extends Controller {
-    public function getPostView() {
-        // GET
-        return view('passwords/post/index');
-    }
 
     public function getAllUserPasswords() {
         // GET

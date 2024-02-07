@@ -9,13 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Notifications\TeamNotification;
 use Illuminate\View\View;
 
-class TeamController extends Controller
-{
-    public function create() {
-        // GET
-        return view('teams/single/create');
-    }
-
+class TeamController extends Controller {
+    
     public function show() {
         // GET        
         $user = User::find(Auth::user()->id);

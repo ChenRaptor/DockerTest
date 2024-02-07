@@ -23,21 +23,19 @@ Route::get('/dashboard', [BasicViewController::class, 'dashboard'])->middleware(
 
 Route::middleware(['auth', 'verified'])->group(function () {
     //passwords page
-    Route::get('/passwords/get', [PasswordController::class, 'getAllUserPasswords'])->name("password.show");
-    Route::get('/passwords/view/post', [PasswordController::class, 'getPostView'])->name("password.add");
-    Route::get('/passwords/{id}/get', [PasswordController::class, 'getUserPassword'])->name("password.update");
+    Route::get('/passwords', [PasswordController::class, 'getAllUserPasswords'])->name("password.show");
+    Route::get('/passwords/{id}/update', [PasswordController::class, 'getUserPassword'])->name("password.get");
     Route::get('/passwords/download', [PasswordController::class, 'download'])->name("password.download");
 
     Route::post('/passwords/post', [PasswordController::class, 'postUserPassword'])->name("password.post");
     Route::post('/passwords/{id}/update/password', [PasswordController::class, 'updatePassword'])->name("password.updatePassword");
     Route::post('/passwords/{id}/update/team', [PasswordController::class, 'updateTeam'])->name("password.updateTeam");
 
-
     //teams page
     Route::get('/teams', [TeamController::class, 'show'])->name("team.show");
-    Route::get('/teams/create', [TeamController::class, 'create'])->name("team.add");
-    Route::post('/teams/create', [TeamController::class, 'store'])->name("team.store");
     Route::get('/teams/{id}/invite', [TeamController::class, 'invitation'])->name("team.invitation");
+    
+    Route::post('/teams/create', [TeamController::class, 'store'])->name("team.store");
     Route::post('/teams/{id}/invite', [TeamController::class, 'invite'])->name("team.invite");
 });
 
