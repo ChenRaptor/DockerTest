@@ -1,28 +1,28 @@
 <?php 
 
 return [
-    'store' => "Add password",
-    'store_url' => 'Website url',
-    'store_login' => 'your login',
-    'store_password' => 'your password',
-    'store_submit_button' => "submit",
+    'store' => "Add Password",
+    'store_url' => 'Website URL',
+    'store_login' => 'Your Username',
+    'store_password' => 'Your Password',
+    'store_submit_button' => "Submit",
 
-    'show' => "Passwords",
-    'show_url' => 'Website url',
-    'show_login' => 'login',
-    'show_password' => 'password',
-    'show_creation' => 'creation date',
-    'show_update' => 'last update date',
-    'show_edit' => 'edit',
-    'show_download' => 'download the list of passwords',
-    'show_no_passwords' => "There is no password for the moment",
+    'show' => "Passwords List",
+    'show_url' => 'Website URL',
+    'show_login' => 'Username',
+    'show_password' => 'Password',
+    'show_creation' => 'Creation Date',
+    'show_update' => 'Last Update Date',
+    'show_edit' => 'Edit',
+    'show_download' => 'Download Passwords List',
+    'show_no_passwords' => "There are no passwords stored at the moment",
 
-    'update' => "Update your password",
-    'update_site' => "the website url",
-    'update_login' => "your login",
-    'update_new-password' => "enter your new password",
-    'update_submit_button' => "submit",
-    'update_link_teams' => "Link my password to a team",
+    'update' => "Update Your Password",
+    'update_site' => "Website URL",
+    'update_login' => "Your Current Username",
+    'update_new-password' => "New Password",
+    'update_submit_button' => "Submit",
+    'update_link_teams' => "Link My Password to a Team",
 ];
 
 ?>

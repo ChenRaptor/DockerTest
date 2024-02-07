@@ -10,19 +10,19 @@ class TeamNotification extends Notification
 {
     use Queueable;
 
-    private $addedUserName;
-    private $addedByUserName;
-    private $addedDateTime;
+    private $userAdded;
+    private $userAddedBy;
+    private $datetime;
+    private $team;
     private $teamUrl;
-    private $joinedTeam;
 
-    public function __construct(string $addedUserName, string $addedByUserName, string $joinedTeam, string $teamUrl, string $addedDateTime)
+    public function __construct(string $userAdded, string $userAddedBy, string $team, string $teamUrl, string $datetime)
     {
-        $this->addedUserName = $addedUserName;
-        $this->addedByUserName = $addedByUserName;
-        $this->joinedTeam = $joinedTeam;
+        $this->userAdded = $userAdded;
+        $this->userAddedBy = $userAddedBy;
+        $this->team = $team;
         $this->teamUrl = $teamUrl;
-        $this->addedDateTime = $addedDateTime;
+        $this->datetime = $datetime;
     }
 
     /**
@@ -41,11 +41,12 @@ class TeamNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line(__('notifications.added_to') . ' ' . $this->joinedTeam)
-            ->line(__('notifications.added_user') . ' ' . $this->addedUserName)
-            ->line(__('notifications.added_by') . ' ' . $this->addedByUserName)
-            ->line(__('notifications.added_at') . ' ' . $this->addedDateTime)
-            ->action(__('notifications.added_button'), url($this->teamUrl));
+            ->line(__('notifications.intro') . ' ' . $this->team)
+            ->line(__('notifications.user_added') . ' ' . $this->userAdded)
+            ->line(__('notifications.added_to') . ' ' . $this->team)
+            ->line(__('notifications.added_by') . ' ' . $this->userAddedBy)
+            ->line(__('notifications.added_at') . ' ' . $this->datetime)
+            ->action(__('notifications.see_more'), url($this->teamUrl));
     }
 
     /**
@@ -55,10 +56,10 @@ class TeamNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'message' => __('notifications.added_to') . ' ' . $this->joinedTeam,
-            'added_user_name' => $this->addedUserName,
-            'added_by_user_name' => $this->addedByUserName,
-            'added_datetime' => $this->addedDateTime,
+            'message' => __('notifications.log') . ' ' . $this->team,
+            'added_user_name' => $this->userAdded,
+            'added_by_user_name' => $this->userAddedBy,
+            'added_datetime' => $this->datetime,
         ];
     }
 }

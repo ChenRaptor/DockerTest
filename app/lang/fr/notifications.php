@@ -1,12 +1,13 @@
 <?php
 
 return [
-    "added" => "Une Nouvelle personne ajoutée à l'équipe",
-    "added_by" => "Ajouté par",
-    "added_to" => "Une nouvelle personne a été ajoutée à l'équipe",
-    "added_user" => "Nom d'utilisateur de la personne ajoutée :",
+    "intro" => "Chers membres de l'équipe",
+    "user_added" => "Nous vous informons qu'un nouveau membre,",
+    "added_to" => "a été ajouté à l'équipe",
+    "added_by" => "Celui ci a été ajouté par",
     "added_at" => "Date de l'ajout :",
-    "added_button" => "Voir l'équipe",
+    "see_more" => "Voir l'équipe",
+    "log" => "Event: Ajout d'un utilisateur à une équipe"
 ]
 
 

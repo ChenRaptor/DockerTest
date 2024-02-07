@@ -1,20 +1,19 @@
 <?php 
 
 return [
-    'store' => "Add teams",
-    'store_name' => 'Name of the team',
-    'store_submit_button' => "submit",
-
+    'store' => "Add Teams",
+    'store_name' => 'Team Name',
+    'store_submit_button' => "Submit",
     'show' => "Teams",
-    'show_name' => 'Name of the team',
-    'show_edit' => 'edit',
-    'show_no_teams' => "There is no team for the moment",
-
-    'invite' => "Invite someone",
-    'invite_name' => 'Name of the team',
-    'invite_submit_button' => "Make him joinded up the team",
-    'invite_no_user' => "There is no user left to invite",
-    'invite_passwords' => "Passwords list of the team",
+    'show_name' => 'Team Name',
+    'show_edit' => 'Edit',
+    'show_no_teams' => "There are currently no teams",
+    'invite' => "Invite Someone",
+    'invite_name' => 'Team Name',
+    'invite_submit_button' => "Invite to Join the Team",
+    'invite_no_user' => "There are no users left to invite",
+    'invite_passwords' => "Team Passwords List",
 ];
+
 
 ?>
