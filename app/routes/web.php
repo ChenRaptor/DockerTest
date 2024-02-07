@@ -33,10 +33,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     //teams page
     Route::get('/teams', [TeamController::class, 'show'])->name("team.show");
-    Route::get('/teams/{id}/invite', [TeamController::class, 'invitation'])->name("team.invitation");
+    Route::get('/teams/{id}/get', [TeamController::class, 'invitation'])->name("team.get");
     
-    Route::post('/teams/create', [TeamController::class, 'store'])->name("team.store");
-    Route::post('/teams/{id}/invite', [TeamController::class, 'invite'])->name("team.invite");
+    Route::post('/teams/post', [TeamController::class, 'createNewTeam'])->name("team.post");
+    Route::post('/teams/{id}/update', [TeamController::class, 'addUsersToTeam'])->name("team.invite");
 });
 
 

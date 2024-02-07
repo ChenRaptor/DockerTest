@@ -71,7 +71,7 @@ class PasswordController extends Controller {
         return redirect(route('password.show'));
     }
 
-    public function udpdateTeam(Request $request, int $id) {
+    public function updateTeam(Request $request, int $id) {
         $request->validate([
             'team' => 'array'
         ]);    

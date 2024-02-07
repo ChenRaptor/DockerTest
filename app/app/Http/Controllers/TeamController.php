@@ -41,7 +41,7 @@ class TeamController extends Controller {
     }
 
 
-    public function store(Request $request) {
+    public function createNewTeam(Request $request) {
         // POST
         $request->validate([
             'name' => 'required|string|unique:teams',
@@ -65,7 +65,7 @@ class TeamController extends Controller {
 
 
 
-    public function invite(Request $request, int $id) {
+    public function addUsersToTeam(Request $request, int $id) {
         // POST
 
         $request->validate([
@@ -80,13 +80,13 @@ class TeamController extends Controller {
             $added->name, 
             User::find( Auth::user()->id)->name, 
             $team->name, 
-            route("team.invitation", $id),
+            route("team.get", $id),
             now()->toDateTimeString()
         );
 
         foreach($team->users as $member) $member->notify($notif);
 
-        return redirect('/teams/'. $id .'/invite');
+        return redirect('/teams/'. $id .'/get');
     }
 
    

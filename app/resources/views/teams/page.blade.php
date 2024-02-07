@@ -19,7 +19,7 @@
                     @if ($datas->count() > 0)
                         @foreach ($datas as $data)
                             <article class="py-4 relative">
-                                <a href="/teams/{{ $data->id }}/invite" class="absolute right-0">{{ __('team.show_edit') }}</a>
+                                <a href="/teams/{{ $data->id }}/get" class="absolute right-0">{{ __('team.show_edit') }}</a>
                                 <h3>{{ __('team.show_name') }} : {{ $data->name }}</h3>
                             </article>
                         @endforeach
