@@ -43,7 +43,7 @@ class PasswordController extends Controller
     }
 
     // Enregistre un nouveau mot de passe pour l'utilisateur actuel
-    public function postUserPassword(Request $request)
+    public function storeUserPassword(Request $request)
     {
         $request->validate([
             'url' => 'required|string|url',
@@ -52,6 +52,7 @@ class PasswordController extends Controller
         ]);
 
         $userId = Auth::id();
+
         Password::create([
             'site' => $request->url,
             'login' => $request->login,
@@ -86,7 +87,7 @@ class PasswordController extends Controller
         $user = Auth::user();
         $password = Password::findOrFail($id);
 
-        $teamPassword = $password->teams()
+        $teamPassword = $password->teams();
         if ($request->has('team')) {
             $teamPassword->sync(
                 array_map('intval', $request->team)

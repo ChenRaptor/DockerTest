@@ -28,7 +28,7 @@ class TeamController extends Controller {
             'datas' => $team,
             'id' => $team->id,
             "passwords" => $team->passwords,
-            'peoples' => User::whereNotIn('id', $team->users->pluck('id'))->get();
+            'peoples' => User::whereNotIn('id', $team->users->pluck('id'))->get()
         ]);
     }
 
@@ -55,7 +55,7 @@ class TeamController extends Controller {
         $user->teams()->attach($id);
         $team = Team::findOrFail($id);
 
-        $notification = new TeamNotification( $user->name, Auth::user()->name, $team->name, route("teams.get", $id), now()->toDateTimeString() );
+        $notification = new TeamNotification($user->name, Auth::user()->name, $team->name, route("teams.get", $id), now()->toDateTimeString());
 
         foreach ($team->users as $member) {
             $member->notify($notification);

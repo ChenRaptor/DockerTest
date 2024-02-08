@@ -34,15 +34,15 @@
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <section>
-                            <h2>{{ __('team.invite_passwords') }}</h2>
+                            <h2>{{ __('team.team_passwords_list') }}</h2>
                             @foreach ($passwords as $data)
                                 <article class="py-4">
                                     <h3 >Site : {{ $data->site }}</h3>
                                     <div>
-                                        <p>{{  __('password.show_url') }}:  {{ $data->login }}</p>
-                                        <p>{{  __('password.show_password') }}: {{ $data->password }}</p>
-                                        <p>{{  __('password.show_creation') }}:  {{ $data->created_at }}</p>
-                                        <p>{{  __('password.show_update') }}:  {{ $data->updated_at }}</p>
+                                        <p>{{  __('password.passwords_list_url') }}:  {{ $data->login }}</p>
+                                        <p>{{  __('password.passwords_list_password') }}: {{ $data->password }}</p>
+                                        <p>{{  __('password.passwords_list_creation_date') }}:  {{ $data->created_at }}</p>
+                                        <p>{{  __('password.passwords_list_last_update_date') }}:  {{ $data->updated_at }}</p>
                                     </div>
                                 </article>
                             @endforeach

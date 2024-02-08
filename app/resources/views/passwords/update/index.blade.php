@@ -12,16 +12,16 @@
 
                     @if ($datas)
                         <article class="py-4">
-                            <h3>{{ __('password.update_site') }} : {{ $datas->site }}</h3>
+                            <h3>{{ __('password.update_password_site') }} : {{ $datas->site }}</h3>
                             <div>
-                                <p>{{ __('password.update_login') }} :  {{ $datas->login }}</span></p>
+                                <p>{{ __('password.update_password_login') }} :  {{ $datas->login }}</span></p>
                                 
                                 <form action="{{ route('password.updatePassword', $datas->id) }}" method="POST">
                                     @csrf                                    
 
                                     <div>
                                         <label>
-                                            <span>{{ __('password.update_new-password') }}</span>
+                                            <span>{{ __('password.update_password_new_password') }}</span>
                                             <input type="password" name="newpassword" class="text-gray-800">
                                         </label>
                                         @error('newpassword')
@@ -29,7 +29,7 @@
                                         @enderror
                                     </div>
 
-                                    <button type="submit">{{ __('password.update_submit_button') }}</button>          
+                                    <button type="submit">{{ __('password.update_password_submit_button') }}</button>          
                                 </form> 
                             </div>
                         </article>
@@ -46,21 +46,15 @@
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <article>
-                            <h3>{{ __('password.update_link_teams') }}</h3>
-                            <form action="{{ route('password.updateTeam', $datas->id) }}" method="POST" class="py-4">
+                            <h3>{{ __('password.update_password_link_teams') }}</h3>
+                            <form action="{{ route('password.updateTeam', $datas->id) }}" method="POST" class="py-4 flex flex-col">
                                 @csrf 
- 
                                 @foreach ($teams as $team)
-                                    <fieldset class="px-4" style="display: inline">
-
-                                        <label >
-                                            <span>{{ $team->name}}</span>
-                                            <input 
-                                                type="checkbox" 
-                                                name="team[]" 
-                                                value="{{ $team->id }}"
-                                                {{ $team->isChecked ? 'checked' : '' }}
-                                            />
+                                    <fieldset class="px-4 py-4" style="display: inline; border-bottom: 2px solid black">
+            
+                                        <label>
+                                            <input type="checkbox" name="team[]" value="{{ $team->id }}" {{ $team->isChecked ? 'checked' : '' }} />
+                                            <span>{{$team->name}}</span>
                                         </label>
 
                                         @error('team[]')
@@ -68,8 +62,7 @@
                                         @enderror
                                     </fieldset>
                                 @endforeach
-
-                                <button type="submit" class="block pt-8">{{ __('password.update_submit_button') }}</button>          
+                                <button type="submit" class="block pt-8">{{ __('password.update_password_submit_button') }}</button>          
                             </form> 
                         </article>            
                     </div>
