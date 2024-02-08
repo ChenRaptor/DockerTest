@@ -60,12 +60,12 @@
                         <section class="py-4">                            
                             <form action="{{ route('team.invite', $id) }}" method="POST">
                                 @csrf
-                                <select name="person-to-invite" class="text-gray-900">
+                                <select name="user-to-add" class="text-gray-900">
                                     @foreach ($peoples as $people)
                                         <option value="{{ $people->id }}">{{ $people->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('person-to-invite')
+                                @error('user-to-add')
                                     <small>Error</small>
                                 @enderror
                                 <button type="submit">{{ __('team.invite_submit_button') }}</button>

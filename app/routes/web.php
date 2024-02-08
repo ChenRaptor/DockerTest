@@ -17,12 +17,7 @@ use App\Http\Controllers\TeamController;
 |
 */
 
-Route::get('/', [BasicViewController::class, 'index'])->name("landing");
-Route::get('/dashboard', [BasicViewController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
-
-
 Route::middleware(['auth', 'verified'])->group(function () {
-    //passwords page
     Route::get('/passwords', [PasswordController::class, 'getAllUserPasswords'])->name("password.show");
     Route::get('/passwords/{id}/update', [PasswordController::class, 'getUserPassword'])->name("password.get");
     Route::get('/passwords/download', [PasswordController::class, 'download'])->name("password.download");
@@ -31,7 +26,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/passwords/{id}/update/password', [PasswordController::class, 'updatePassword'])->name("password.updatePassword");
     Route::post('/passwords/{id}/update/team', [PasswordController::class, 'updateTeam'])->name("password.updateTeam");
 
-    //teams page
     Route::get('/teams', [TeamController::class, 'show'])->name("teams.show");
     Route::get('/teams/{id}/get', [TeamController::class, 'invitation'])->name("teams.get");
     
@@ -45,5 +39,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/', [PageController::class, 'home'])->name("home");
+Route::get('/dashboard', [PageController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';

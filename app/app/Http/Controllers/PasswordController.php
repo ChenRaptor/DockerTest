@@ -28,17 +28,17 @@ class PasswordController extends Controller
 
         // Récupère les équipes partagées avec ce mot de passe
         $userTeams = User::findOrFail($userId)->teams;
-        $teamsWithPasswordShared = [];
+        $teamsWithPasswordLinked = [];
 
         foreach ($userTeams as $team) {
             $teamPassword = $team->passwords()->where('id', $id)->first();
             $team->isChecked = !is_null($teamPassword);
-            $teamsWithPasswordShared[] = $team;
+            $teamsWithPasswordLinked[] = $team;
         }
 
         return view('passwords.update.index', [
             'datas' => $password,
-            'teams' => $teamsWithPasswordShared
+            'teams' => $teamsWithPasswordLinked
         ]);
     }
 
@@ -86,11 +86,13 @@ class PasswordController extends Controller
         $user = Auth::user();
         $password = Password::findOrFail($id);
 
+        $teamPassword = $password->teams()
         if ($request->has('team')) {
-            $teamIds = array_map('intval', $request->team);
-            $password->teams()->sync($teamIds);
+            $teamPassword->sync(
+                array_map('intval', $request->team)
+            );
         } else {
-            $password->teams()->detach();
+            $teamPassword->detach();
         }
 
         return redirect()->route('password.show');
