@@ -29,7 +29,7 @@
                                         @enderror
                                     </div>
 
-                                    <button type="submit">{{ __('password.update_password_submit_button') }}</button>          
+                                    <button type="submit" style="background: black; border-radius: 5px; padding: 10px 20px">{{ __('password.update_password_submit_button') }}</button>          
                                 </form> 
                             </div>
                         </article>
@@ -62,7 +62,7 @@
                                         @enderror
                                     </fieldset>
                                 @endforeach
-                                <button type="submit" class="block pt-8">{{ __('password.update_password_submit_button') }}</button>          
+                                <button type="submit" class="block pt-8" style="background: black; border-radius: 5px; padding: 10px 20px">{{ __('password.update_password_submit_button') }}</button>          
                             </form> 
                         </article>            
                     </div>

@@ -17,7 +17,7 @@
                     </div>
 
         
-                    <button type="submit">{{ __('team.add_team_submit_button') }}</button>          
+                    <button type="submit" style="background: black; border-radius: 5px; padding: 10px 20px">{{ __('team.add_team_submit_button') }}</button>          
                 </form> 
             </div>
         </div>

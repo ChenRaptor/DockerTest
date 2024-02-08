@@ -28,8 +28,33 @@
         </div>
     @endif
 
+    @if ($peoples)
+        <div class="py-4">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        <section class="py-4">                            
+                            <form action="{{ route('team.invite', $id) }}" method="POST">
+                                @csrf
+                                <select name="user-to-add" class="text-gray-900" style="width: 200px; margin-right: 20px">
+                                    @foreach ($peoples as $people)
+                                        <option value="{{ $people->id }}">{{ $people->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('user-to-add')
+                                    <small>Error</small>
+                                @enderror
+                                <button type="submit" style="background: black; border-radius: 5px; padding: 10px 20px">{{ __('team.invite_to_join_submit_button') }}</button>
+                            </form>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
     @if ($passwords)
-        <div class="py-12">
+        <div class="py-4">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
@@ -51,29 +76,5 @@
                 </div>
             </div>
         </div>                
-    @endif
-    @if ($peoples)
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <section class="py-4">                            
-                            <form action="{{ route('team.invite', $id) }}" method="POST">
-                                @csrf
-                                <select name="user-to-add" class="text-gray-900">
-                                    @foreach ($peoples as $people)
-                                        <option value="{{ $people->id }}">{{ $people->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('user-to-add')
-                                    <small>Error</small>
-                                @enderror
-                                <button type="submit">{{ __('team.invite_to_join_submit_button') }}</button>
-                            </form>
-                        </section>
-                    </div>
-                </div>
-            </div>
-        </div>
     @endif
 </x-app-layout>

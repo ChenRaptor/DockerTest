@@ -10,7 +10,7 @@
     <div class="py-4">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     @if ($datas->count() > 0) 
-        <a href="{{ route('password.download') }}" class="text-white" ><strong>{{ __('password.passwords_list_download') }}</strong></a>
+        <a href="{{ route('password.download') }}" class="text-white" style="background: black; border-radius: 5px; padding: 10px 20px"><strong>{{ __('password.passwords_list_download') }}</strong></a>
     @else
         <h2>{{ __('password.passwords_list_no_passwords') }}</h2>
     @endif
