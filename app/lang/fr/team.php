@@ -9,7 +9,7 @@ return [
     'teams_list_no_teams' => "Il n'y a pas d'équipe pour le moment",
     'invite' => "Inviter quelqu'un",
     'invite_name' => 'Nom de l\'équipe',
-    'invite_submit_button' => "Inviter à rejoindre l'équipe",
+    'invite_to_join_submit_button' => "Inviter à rejoindre l'équipe",
     'invite_no_user' => "Il n'y a plus d'utilisateur à inviter",
     'team_passwords_list' => "Liste des mots de passe de l'équipe",
 ];

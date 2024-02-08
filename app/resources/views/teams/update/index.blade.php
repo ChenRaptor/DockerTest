@@ -68,7 +68,7 @@
                                 @error('user-to-add')
                                     <small>Error</small>
                                 @enderror
-                                <button type="submit">{{ __('team.invite_submit_button') }}</button>
+                                <button type="submit">{{ __('team.invite_to_join_submit_button') }}</button>
                             </form>
                         </section>
                     </div>
