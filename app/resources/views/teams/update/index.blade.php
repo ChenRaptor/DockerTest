@@ -74,6 +74,6 @@
                     </div>
                 </div>
             </div>
-        </div>      
+        </div>
     @endif
 </x-app-layout>
